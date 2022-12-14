@@ -1,0 +1,20 @@
+1. select * from pizza_items where price = (select min(price) from pizza_item);
+
+2. select * from pizza_items where price > (select avg(price) from pizza_item group by item_id);
+
+3. select bill_no, bill_date, s.cust_id, s.item_id, qty_sold from sale s, pizza_item p where p.item_id = s.item_id and (qty_sold * price) > 1200;
+
+4. update pizza_item set price = 2000 where item_name = 'Chicago Pizza);
+
+5. select round(avg(qty_sold)) from sale group by item_id order by round(avg(qty_sold)) desc;
+
+6. 
+
+7. select cust_name from customer where cust_id in (select cust_id from customer group by item_id having count(cust_id) = 2);
+
+8. create view cust_view as select cust_name, item_name, bill_no from customer c, pizza_item p, sale s where s.item_id = p.item_id and s.cust_id = c.cust_id;
+
+9. select cust_id, cust_name from customer c, sale s where c.cust_id = s.cust_id and s.cust_id in (select cust_id from pizza_item p left join sale s on s.item_id = p.item_id);
+
+10. delete from pizza_item where item_id not in (select item_id from sale);
+
